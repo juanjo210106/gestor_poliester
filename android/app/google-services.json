@@ -12,7 +12,20 @@
           "package_name": "com.example.gestor_poliester"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "808862266616-7cndtano2iftk85gjle4jrl1fbeco0fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gestor_poliester",
+            "certificate_hash": "0c59a96809ea05ccda4eb27d964bb45c93c42f0b"
+          }
+        },
+        {
+          "client_id": "808862266616-p75uc65i29cnaqsuavm07diobq8b634d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDIvH-I6dO9C6tDUlCMNElv97KdmvmwGN4"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808862266616-p75uc65i29cnaqsuavm07diobq8b634d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
