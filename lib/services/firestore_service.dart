@@ -82,4 +82,6 @@ class FirestoreService {
   Future<void> deletePedido(String id) {
     return _db.collection('pedidos').doc(id).delete();
   }
+
+  
 }
