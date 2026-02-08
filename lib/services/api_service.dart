@@ -1,21 +1,30 @@
-// lib/services/api_service.dart
+//
 import 'dart:convert';
+import 'dart:math'; // <--- IMPORTANTE: Añade esta librería para los números aleatorios
 import 'package:http/http.dart' as http;
 
 class ApiService {
   // URL de prueba gratuita (JSONPlaceholder)
   final String _baseUrl = 'https://jsonplaceholder.typicode.com';
 
-  // 1. LECTURA (GET): Obtener un "consejo de gestión" externo
-  // (Simulamos que leemos un mensaje de una API externa)
+  // 1. LECTURA (GET): Obtener un "consejo" ALEATORIO
   Future<String> obtenerConsejoDelDia() async {
     try {
-      final response = await http.get(Uri.parse('$_baseUrl/posts/1'));
+      // Generamos un número al azar del 1 al 100
+      int idAleatorio = Random().nextInt(100) + 1;
+
+      // Pedimos ese post específico a la API
+      final response = await http.get(
+        Uri.parse('$_baseUrl/posts/$idAleatorio'),
+      );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        // Devolvemos el título como si fuera un consejo
-        return "Consejo externo: ${data['title']}";
+        // Cortamos el texto si es muy largo para que quede bonito
+        String texto = data['title'];
+        if (texto.length > 50) texto = "${texto.substring(0, 50)}...";
+
+        return "Consejo #$idAleatorio: $texto";
       } else {
         return "No se pudo conectar con el servidor externo.";
       }
@@ -24,25 +33,21 @@ class ApiService {
     }
   }
 
-  // 2. ESCRITURA (POST): Enviar datos a un servidor externo
-  // (Simulamos subir un pedido a la contabilidad central)
+  // ... (El resto del código de enviarPedidoExterno déjalo igual) ...
   Future<bool> enviarPedidoExterno(Map<String, dynamic> pedidoData) async {
+    // ... (tu código de escritura que ya funcionaba)
     try {
       final response = await http.post(
         Uri.parse('$_baseUrl/posts'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(pedidoData),
       );
-
-      // El código 201 significa "Creado" en HTTP
       if (response.statusCode == 201) {
-        print("Respuesta del servidor: ${response.body}");
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print("Error al enviar: $e");
       return false;
     }
   }
