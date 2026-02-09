@@ -24,63 +24,78 @@ class _ClientesScreenState extends State<ClientesScreen> {
   }
 
   // Formulario para añadir/editar clientes
-  void _mostrarFormulario({Cliente? cliente}) {
-    final nombreController = TextEditingController(text: cliente?.nombre ?? '');
-    final emailController = TextEditingController(text: cliente?.email ?? '');
-    final telefonoController = TextEditingController(text: cliente?.telefono ?? '');
+void _mostrarFormulario({Cliente? cliente}) {
+  final _nombreController = TextEditingController(text: cliente?.nombre ?? '');
+  final _emailController = TextEditingController(text: cliente?.email ?? '');
+  final _telefonoController = TextEditingController(text: cliente?.telefono ?? '');
+  
+  // 1. CREAMOS LA LLAVE DEL FORMULARIO
+  final _formKey = GlobalKey<FormState>(); 
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(cliente == null ? 'Nuevo Cliente' : 'Editar Cliente'),
-          content: SingleChildScrollView(
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(cliente == null ? 'Nuevo Cliente' : 'Editar Cliente'),
+        content: SingleChildScrollView(
+          // 2. ENVOLVEMOS TODO EN UN WIDGET FORM
+          child: Form( 
+            key: _formKey, // Asignamos la llave
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  controller: nombreController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre completo',
-                    icon: Icon(Icons.person),
-                  ),
+                TextFormField(
+                  controller: _nombreController,
+                  decoration: const InputDecoration(labelText: 'Nombre'),
+                  // 3. AÑADIMOS EL VALIDADOR (Esta es la lógica que hace salir lo rojo)
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor ingrese un nombre'; // <--- MENSAJE DE ERROR
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 10),
-                TextField(
-                  controller: emailController,
+                TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    icon: Icon(Icons.email),
-                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor ingrese un email';
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 10),
-                TextField(
-                  controller: telefonoController,
+                TextFormField(
+                  controller: _telefonoController,
+                  decoration: const InputDecoration(labelText: 'Teléfono'),
                   keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                    labelText: 'Teléfono',
-                    icon: Icon(Icons.phone),
-                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor ingrese un teléfono';
+                    }
+                    return null;
+                  },
                 ),
               ],
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancelar'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Validación básica
-                if (nombreController.text.isEmpty) return;
-
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // 4. PREGUNTAMOS A LA LLAVE SI TODO ESTÁ BIEN
+              if (_formKey.currentState!.validate()) {
+                // Solo si devuelve TRUE (todo válido), guardamos
                 final nuevoCliente = Cliente(
                   id: cliente?.id ?? '',
-                  nombre: nombreController.text,
-                  email: emailController.text,
-                  telefono: telefonoController.text,
+                  nombre: _nombreController.text,
+                  email: _emailController.text,
+                  telefono: _telefonoController.text,
                 );
 
                 if (cliente == null) {
@@ -88,15 +103,16 @@ class _ClientesScreenState extends State<ClientesScreen> {
                 } else {
                   _firestoreService.updateCliente(nuevoCliente);
                 }
-                Navigator.pop(context);
-              },
-              child: const Text('Guardar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+                Navigator.of(context).pop();
+              }
+            },
+            child: const Text('Guardar'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
