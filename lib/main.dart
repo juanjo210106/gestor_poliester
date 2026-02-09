@@ -6,13 +6,11 @@ import 'screens/home_screen.dart';
 import 'services/auth_service.dart';
 
 void main() async {
-  // 1. Aseguramos que el motor de Flutter esté listo antes de usar plugins
+  // Aseguramos que el motor de Flutter esté listo antes de usar plugins
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Inicializamos Firebase
-  // IMPORTANTE: Como no usamos firebase_options.dart,
+  // Inicializamos Firebase
   // Flutter buscará automáticamente el archivo google-services.json en Android
-  // y GoogleService-Info.plist en iOS.
   await Firebase.initializeApp();
 
   // 3. Arrancamos la App
