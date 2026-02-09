@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import '../services/api_service.dart'; // Importamos el nuevo servicio
+import '../services/api_service.dart';
 import 'productos_screen.dart';
 import 'clientes_screen.dart';
 import 'pedidos_screen.dart';

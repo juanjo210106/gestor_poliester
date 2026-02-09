@@ -1,13 +1,12 @@
-//
 import 'dart:convert';
-import 'dart:math'; // <--- IMPORTANTE: Añade esta librería para los números aleatorios
+import 'dart:math'; // librería para los números aleatorios
 import 'package:http/http.dart' as http;
 
 class ApiService {
   // URL de prueba gratuita (JSONPlaceholder)
   final String _baseUrl = 'https://jsonplaceholder.typicode.com';
 
-  // 1. LECTURA (GET): Obtener un "consejo" ALEATORIO
+  // Obtener un "consejo" ALEATORIO
   Future<String> obtenerConsejoDelDia() async {
     try {
       // Generamos un número al azar del 1 al 100
@@ -38,7 +37,7 @@ class ApiService {
   }
 
   Future<bool> enviarPedidoExterno(Map<String, dynamic> pedidoData) async {
-    // ... (tu código de escritura que ya funcionaba)
+    // ENVIAMOS LOS DATOS MEDIANTE POST
     try {
       final response = await http.post(
         Uri.parse('$_baseUrl/posts'),

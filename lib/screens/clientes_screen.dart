@@ -47,7 +47,7 @@ void _mostrarFormulario({Cliente? cliente}) {
                 TextFormField(
                   controller: _nombreController,
                   decoration: const InputDecoration(labelText: 'Nombre'),
-                  // 3. AÑADIMOS EL VALIDADOR (Esta es la lógica que hace salir lo rojo)
+                  // AÑADIMOS EL VALIDADOR (lógica que hace salir lo rojo)
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingrese un nombre'; // <--- MENSAJE DE ERROR
@@ -88,7 +88,7 @@ void _mostrarFormulario({Cliente? cliente}) {
           ),
           ElevatedButton(
             onPressed: () {
-              // 4. PREGUNTAMOS A LA LLAVE SI TODO ESTÁ BIEN
+              // PREGUNTAMOS A LA LLAVE SI TODO ESTÁ BIEN
               if (_formKey.currentState!.validate()) {
                 // Solo si devuelve TRUE (todo válido), guardamos
                 final nuevoCliente = Cliente(

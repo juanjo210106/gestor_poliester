@@ -21,7 +21,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
   // Método para mostrar el formulario de Pedidos
   // Es async porque necesitamos esperar a cargar clientes y productos antes de mostrar el diálogo
   void _mostrarFormulario({Pedido? pedido}) async {
-    // 1. Obtenemos las listas actuales de Clientes y Productos
+    // Obtenemos las listas actuales de Clientes y Productos
     // Usamos .first para convertir el Stream en un solo dato (Future)
     final List<Cliente> clientes = await _firestoreService.getClientes().first;
     final List<Producto> productos = await _firestoreService
@@ -42,7 +42,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
       return;
     }
 
-    // 2. Preparamos valores iniciales
+    // Preparamos valores iniciales
     // Si editamos, usamos los del pedido. Si es nuevo, usamos el primero de la lista.
     String selectedClienteId = pedido?.clienteId ?? clientes.first.id;
     String selectedProductoId = pedido?.productoId ?? productos.first.id;
@@ -250,7 +250,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
                               pedido.toMap(),
                             );
 
-                            // 2. Convertimos la fecha 'rara' de Firebase a texto simple (ISO 8601)
+                            // 2. Convertimos la fecha 'rara' de Firebase a texto simple
                             // NOTA: 'fecha' en tu modelo es DateTime, así que lo convertimos a String aquí
                             datosParaEnviar['fecha'] = pedido.fecha
                                 .toIso8601String();

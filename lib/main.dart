@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      // GESTOR DE NAVEGACIÓN (Auth Gate)
+      // GESTOR DE NAVEGACIÓN
       // Este StreamBuilder escucha constantemente si hay alguien logueado.
       home: StreamBuilder<User?>(
         stream: AuthService().authStateChanges,

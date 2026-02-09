@@ -16,22 +16,22 @@ class AuthService {
   // Método para Iniciar Sesión con Google
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      // 1. Iniciar el flujo interactivo de Google
+      // Iniciar el flujo interactivo de Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       
       // Si el usuario cancela la ventana emergente, devolvemos null
       if (googleUser == null) return null;
 
-      // 2. Obtener los detalles de autenticación (tokens)
+      // Obtener los detalles de autenticación (tokens)
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-      // 3. Crear una credencial nueva para Firebase usando los tokens de Google
+      // Crear una credencial nueva para Firebase usando los tokens de Google
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      // 4. Iniciar sesión en Firebase con esa credencial
+      // Iniciar sesión en Firebase con esa credencial
       return await _auth.signInWithCredential(credential);
       
     } catch (e) {
