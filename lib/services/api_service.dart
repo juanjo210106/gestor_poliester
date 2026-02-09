@@ -16,6 +16,10 @@ class ApiService {
       // Pedimos ese post específico a la API
       final response = await http.get(
         Uri.parse('$_baseUrl/posts/$idAleatorio'),
+        headers: {
+          'User-Agent': 'PostmanRuntime/7.29.0',
+          'Accept': '*/*',
+        },
       );
 
       if (response.statusCode == 200) {
