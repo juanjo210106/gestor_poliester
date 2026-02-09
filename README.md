@@ -69,6 +69,6 @@ El código fuente sigue una arquitectura limpia y separada por responsabilidades
 ---
 
 ## 👤 Autor
-* **Alumno:** [Tu Nombre Completo]
-* **Asignatura:** Programación Multimedia y Dispositivos Móviles.
+* **Alumno:** Juan José Gamero López
+* **Asignatura:** Acceso a Datos.
 * **Empresa:** Depofibra.
