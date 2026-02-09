@@ -33,7 +33,6 @@ class ApiService {
     }
   }
 
-  // ... (El resto del código de enviarPedidoExterno déjalo igual) ...
   Future<bool> enviarPedidoExterno(Map<String, dynamic> pedidoData) async {
     // ... (tu código de escritura que ya funcionaba)
     try {
